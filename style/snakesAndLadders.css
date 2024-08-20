@@ -1,0 +1,270 @@
+:root {
+    --x: 0;
+    --y: 0;
+    --xp: 0;
+    --yp: 0;
+    --hue: 0;
+    --bg: hsl(0, 0%, 0%);
+    --size: 100px;
+    --glow: radial-gradient(50% 50% at center,
+            hsl(var(--hue), 85%, 80%),
+            hsl(var(--hue), 85%, 70%),
+            hsl(0, 100%, 65%),
+            transparent) calc((var(--x) * 1px) - (var(--size) * 0.5)) calc((var(--y) * 1px) - (var(--size) * 0.5)) / var(--size) var(--size) no-repeat fixed;
+}
+
+body,
+html,
+#neon {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#neon {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    touch-action: pan-up;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    text-shadow: 0 0 5px #ffffff, 0 0 20px #000, 0 0 30px #000;
+}
+
+#neon canvas {
+    display: block;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+}
+
+.container {
+    background-color: #ffffff9f;
+    backdrop-filter: blur(5px);
+}
+
+.board {
+    width: calc(100vh - 200px);
+    height: calc(100vh - 200px);
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 1px;
+    background-image: url("/images/SnakeLadder.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.player {
+    width: 45px;
+    height: 45px;
+    background-image: url("/images/greenpawn.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    transition: left 0.5s ease, top 0.5s ease;
+}
+
+.npc {
+    width: 45px;
+    height: 45px;
+    background-image: url("/images/redpawn.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    transition: left 0.5s ease, top 0.5s ease;
+}
+
+.dice {
+    width: 100px;
+    height: 100px;
+    background-image: url("/images/num1Green.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 550px;
+
+
+}
+
+.bounceFromTop {
+    animation: bounceFromTop 0.6s;
+}
+
+@keyframes bounceFromTop {
+
+    0%,
+    25%,
+    55%,
+    85%,
+    100% {
+        animation-timing-function: ease-out;
+        transform: translate3d(0, 0, 0);
+    }
+
+    41%,
+    44% {
+        animation-timing-function: ease-in;
+        transform: translate3d(0, -80px, 0) scale3d(1, 1.6, 1);
+    }
+
+    70% {
+        animation-timing-function: ease-in;
+        transform: translate3d(0, -20px, 0);
+    }
+
+    90% {
+        transform: translate3d(0, -4px, 0)
+    }
+}
+
+.overlay {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: #0000006d;
+    backdrop-filter: blur(3px);
+    visibility: hidden;
+
+
+}
+
+.btncontainer {
+    width: 365px;
+    height: 250px;
+    background-color: #ffffff57;
+    border-radius: 20px;
+}
+
+.btn {
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.1ch;
+    background: var(--bg);
+    border: 4px solid transparent;
+    box-shadow: 0 1px hsl(0 0% 100% / 0.15) inset;
+    cursor: pointer;
+    background:
+        linear-gradient(var(--bg), var(--bg)) padding-box,
+        var(--glow),
+        linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)) border-box;
+    transition: background-size 0.24s;
+    touch-action: none;
+    position: relative;
+    height: 45px;
+    width: 125px;
+    font-size: 1.1rem;
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 1px hsl(0 0% 100% / 0.15) inset;
+    background: var(--bg);
+    z-index: 2;
+    border-radius: 8px;
+}
+
+.btn span {
+    background: var(--glow), rgba(255, 255, 255, 0.799);
+    background-clip: text;
+    color: transparent;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+    inset: 0;
+}
+
+:root:has(.btn:active) {
+    --size: 300px;
+}
+
+.btn::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    filter: blur(20px);
+    border: 4px solid transparent;
+    background: var(--glow);
+    border-radius: 1rem;
+}
+
+.winhead {
+    margin-top: 20px;
+}
+
+.restartp {
+    font-size: 1.4rem;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+@media (max-width: 768px) {
+    .board {
+        width: calc(100vw - 30px);
+        height: calc(100vw - 30px);
+    }
+
+    .dice {
+        right: 50%;
+        transform: translate(50%, 0%);
+        bottom: 35px;
+        width: 72px;
+        height: 72px;
+    }
+
+    @keyframes bounceFromTop {
+
+        0%,
+        25%,
+        55%,
+        85%,
+        100% {
+            animation-timing-function: ease-out;
+            transform: translate3d(50%, 0, 0);
+        }
+
+        41%,
+        44% {
+            animation-timing-function: ease-in;
+            transform: translate3d(50%, -80px, 0) scale3d(1, 1.6, 1);
+        }
+
+        70% {
+            animation-timing-function: ease-in;
+            transform: translate3d(50%, -20px, 0);
+        }
+
+        90% {
+            transform: translate3d(50%, -4px, 0)
+        }
+    }
+}
