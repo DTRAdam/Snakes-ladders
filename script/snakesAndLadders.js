@@ -104,10 +104,7 @@ function movement(who, num, dicenum) {
             if (num != 99) {
                 num++;
             }
-            // num += num != 99 ? 1 : 0
-            // num++
-            // num = Math.min(num, 99);  
-            // num = Math.min(++num, 99);
+
             move(who, num);
             // we multiply the 500 ms by i to reach the delay number or ms that the player need to move from the starting point to the box after it \
             if (i == 1) {
